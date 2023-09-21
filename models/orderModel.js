@@ -32,18 +32,16 @@ const orderSchema=new mongoose.Schema({
             type:Number,
             required:true
         },
-        product:{
-            type:mongoose.Schema.ObjectId,
-            ref:"Product",
-            required:true
-        },
         totalPrice:{
             type:Number,
             required:true,
             default:0
         },
     },
- 
+    product:{
+        type:mongoose.Schema.ObjectId,
+        ref:"Product",
+    },
     orderStatus:{
         type:String,
         required:true,

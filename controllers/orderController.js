@@ -8,12 +8,14 @@ exports.newOrder = catchAsyncError(async (req, res, next) => {
     const {
       shippingInfo,
       orderItems,
+      product
     } = req.body;
   console.log(orderItems)
   console.log(shippingInfo)
     const order = await Order.create({
       shippingInfo,
       orderItems,
+      product
     });
   
     res.status(201).json({
@@ -43,7 +45,7 @@ exports.newOrder = catchAsyncError(async (req, res, next) => {
 
       //get all  orders by--admin//
       exports.getAllOrders=catchAsyncError( async(req,res,next)=>{
-        const orders= await Order.find()
+        const orders= await Order.find().populate('product')
         // let totalAmout=0;
         // orders.forEach((order) => {
         //     totalAmout+=order.totalPrice;
