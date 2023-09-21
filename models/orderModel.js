@@ -32,6 +32,10 @@ const orderSchema=new mongoose.Schema({
             type:Number,
             required:true
         },
+        color:{
+            type:String,
+            required:true
+        },
         totalPrice:{
             type:Number,
             required:true,
