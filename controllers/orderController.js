@@ -62,22 +62,36 @@ exports.newOrder = catchAsyncError(async (req, res, next) => {
 
 
 //   update order status --admin////////////////////////////////////////////////
+//        exports.updateOrder=catchAsyncError( async(req,res,next)=>{
+//          const order= await Order.findById(req.params.id)
+//          if(!order){
+//           return next(new ErrorHander("order not found with id",404))
+//       }
+// if(order.orderStatus==="Delivered"){
+//      return next(new ErrorHander("you hava already delivered this order",404))
+//  }
+// if(req.body.status==="Shipped"){
+//   order.orderItems.forEach(async (order)=>{
+//     await updateStock(order.product,order.quantity)
+//  })
+// }
+// order.orderStatus=req.body.status
+// if(req.body.status==="Delivered"){
+//      order.deliveredAt=Date.now()
+// }
+// await order.save({validateBeforeSave:false})
+//    res.status(200).json({
+//        success:true,
+//       })
+// })
        exports.updateOrder=catchAsyncError( async(req,res,next)=>{
          const order= await Order.findById(req.params.id)
          if(!order){
           return next(new ErrorHander("order not found with id",404))
       }
-///ya neacha wali if ma check karra ga k order status kiaa haa.. agr delivered htoh ya chala gi
-if(order.orderStatus==="Delivered"){
-     return next(new ErrorHander("you hava already delivered this order",404))
- }
-if(req.body.status==="Shipped"){
-  order.orderItems.forEach(async (order)=>{
-    await updateStock(order.product,order.quantity)
- })
-}
+
+console.log(req.body.status)
 order.orderStatus=req.body.status
-// ya neacha wali if iss liya haa k jb hm oderStatus baja ga k delivered
 if(req.body.status==="Delivered"){
      order.deliveredAt=Date.now()
 }
@@ -87,12 +101,7 @@ await order.save({validateBeforeSave:false})
       })
 })
 
-async function updateStock(id,quantity){
-   const product = await Product.findById(id);
-       product.Stock-=quantity
-      await product.save({validateBeforeSave:false})
 
-}
 
 
     //delete order by--admin//
